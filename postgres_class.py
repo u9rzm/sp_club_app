@@ -1,7 +1,7 @@
 import psycopg2 as ps
 import os
 import locale
-import Entiti_db
+import Entity_db
 
 class w_db:
     def __init__(self):
@@ -15,8 +15,12 @@ class w_db:
         return print(' ---- Ну вроде экзекьютнулось----- ')
         
     def ins(self, table: str, values: dict):
-        pass
-#        self.cur.execute(
+        column=', '.join(values.keys())
+        val = tuple(values.values())        
+        self.cur.execute(f'''INSERT {table} ({column}) VALUES {val};''')
+        self.conn.commit()
+        print(f'''INSERT {table} ({column}) VALUES {val};''')
+        return print('Inserted to {table}')
 
 
 
